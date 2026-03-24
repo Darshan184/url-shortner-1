@@ -27,8 +27,8 @@ Resources:
   CreateUrlFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: HelloWorldFunction
-      Handler: helloworld.CreateUrlHandler::handleRequest
+      CodeUri: .
+      Handler: url_shortner.CreateUrlHandler::handleRequest
       Policies:
         - DynamoDBWritePolicy:
             TableName: !Ref UrlShortenerTable
@@ -43,8 +43,8 @@ Resources:
   RedirectUrlFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: HelloWorldFunction
-      Handler: helloworld.RedirectUrlHandler::handleRequest
+      CodeUri: .
+      Handler: url_shortner.RedirectUrlHandler::handleRequest
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref UrlShortenerTable
