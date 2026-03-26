@@ -1,5 +1,5 @@
-/.aws-sam/
-/.idea/
-/url-shortner.iml
-/events
-/target
+.aws-sam/
+.idea/
+url-shortner.iml
+events/
+target/
