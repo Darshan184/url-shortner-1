@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'URL Shortener Assignment - Java 21
+
+  '
+Globals:
+  Function:
+    Timeout: 20
+    MemorySize: 512
+    Runtime: java21
+    Architectures:
+    - x86_64
+    Environment:
+      Variables:
+        TABLE_NAME:
+          Ref: UrlShortenerTable
+Resources:
+  UrlShortenerTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: shortId
+        Type: String
+  CreateUrlFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: CreateUrlFunction
+      Handler: helloworld.CreateUrlHandler::handleRequest
+      Policies:
+      - DynamoDBWritePolicy:
+          TableName:
+            Ref: UrlShortenerTable
+      Events:
+        CreateApi:
+          Type: Api
+          Properties:
+            Path: /get-url-shortner
+            Method: post
+    Metadata:
+      SamResourceId: CreateUrlFunction
+  RedirectUrlFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: RedirectUrlFunction
+      Handler: helloworld.RedirectUrlHandler::handleRequest
+      Policies:
+      - DynamoDBReadPolicy:
+          TableName:
+            Ref: UrlShortenerTable
+      Events:
+        RedirectApi:
+          Type: Api
+          Properties:
+            Path: /short/{shortId}
+            Method: get
+    Metadata:
+      SamResourceId: RedirectUrlFunction
+Outputs:
+  BaseApiUrl:
+    Description: API Gateway endpoint URL
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/

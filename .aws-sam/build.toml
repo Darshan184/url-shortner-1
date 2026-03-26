@@ -5,6 +5,7 @@ codeuri = "C:\\Users\\Darshan\\IdeaProjects\\url-shortner\\HelloWorldFunction"
 runtime = "java21"
 architecture = "x86_64"
 handler = "helloworld.CreateUrlHandler::handleRequest"
+source_hash = "e79d29fec781ca5efafb8c4b4d9643d6b62445c71f466f21438d5e19f30bc398"
 manifest_hash = ""
 packagetype = "Zip"
 functions = ["CreateUrlFunction", "RedirectUrlFunction"]
